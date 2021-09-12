@@ -2,7 +2,7 @@ import React from 'react';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
 
-import { SchedulingDetails } from './src/screens/SchedulingDetails';
+import { SchedulingComplete } from './src/screens/SchedulingComplete';
 import theme from './src/shared/styles/theme';
 
 import {
@@ -33,7 +33,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SchedulingDetails />
+      <SchedulingComplete />
     </ThemeProvider>
   );
 }
