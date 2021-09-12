@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar, useWindowDimensions } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 
 import { ConfirmButton } from '../../components/ConfirmButton';
 
@@ -22,7 +22,12 @@ export function SchedulingComplete() {
   const navigation = useNavigation();
 
   function handleHome() {
-    navigation.navigate('Home')
+    // navigation.navigate('Home')
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Home'
+      })
+    )
   }
 
   return (
