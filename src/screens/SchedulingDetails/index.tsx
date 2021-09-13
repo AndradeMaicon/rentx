@@ -54,7 +54,8 @@ interface RentalPeriod {
 }
 
 export function SchedulingDetails() {
-  const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>({} as RentalPeriod)
+  const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>({} as RentalPeriod);
+  const [loading, setLoading] = useState(false);
 
   const theme = useTheme()
   const navigation = useNavigation();
@@ -65,6 +66,7 @@ export function SchedulingDetails() {
 
   async function handleSchedulingComplete() {
     // navigation.navigate('SchedulingComplete')
+    setLoading(true);
 
     const scheduleByCar = await api.get(`/schedules_bycars/${car.id}`);
 
@@ -72,6 +74,13 @@ export function SchedulingDetails() {
       ...scheduleByCar.data.unavailable_dates,
       ...dates
     ]
+
+    await api.post('schedules_byuser', {
+      user_id: 1,
+      car,
+      startDate: format(getPlatformDate(new Date(dates[0])), 'dd/MM/yyyy'),
+      endDate: format(getPlatformDate(new Date(dates[dates.length -1])), 'dd/MM/yyyy')
+    })
 
     api.put(`/schedules_bycars/${car.id}`, {
       id: car.id,
@@ -82,7 +91,10 @@ export function SchedulingDetails() {
           name: 'SchedulingComplete'
         })
       )  
-    ).catch(() => Alert.alert('Não foi possivel confirmar o agendamento'))
+    ).catch(() => {
+      setLoading(false);
+      Alert.alert('Não foi possivel confirmar o agendamento')
+    })
   }
 
   function handeBack() {
@@ -179,6 +191,8 @@ export function SchedulingDetails() {
           title='Alugar agora'
           onPress={handleSchedulingComplete}
           color={theme.colors.success}
+          enabled={!loading}
+          loading={loading}
         />
       </Footer>
     </Container>

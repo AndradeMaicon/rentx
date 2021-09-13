@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Alert, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import { format } from 'date-fns';
 
 import { CommonActions, useNavigation, useRoute } from '@react-navigation/native';
@@ -47,10 +47,6 @@ export function Scheduling() {
 
   function handleSchedulingDetails() {
     // navigation.navigate('SchedulingDetails')
-
-    if(!rentalPeriod.startFormatted || !rentalPeriod.endFormatted){
-      Alert.alert('Selecione o intervalo da locação')
-    } else {
       navigation.dispatch(
         CommonActions.navigate({
           name: 'SchedulingDetails',
@@ -60,8 +56,6 @@ export function Scheduling() {
           }
         })
       )
-    }
-
   }
 
   function handeBack() {
@@ -119,7 +113,7 @@ export function Scheduling() {
 
           <DateInfo>
             <DateTitle>De</DateTitle>
-            <DateValue selected={!!rentalPeriod.startFormatted}>
+            <DateValue selected={!!rentalPeriod.endFormatted}>
               {rentalPeriod.endFormatted}
             </DateValue>
           </DateInfo>
@@ -134,7 +128,7 @@ export function Scheduling() {
       </Content>
 
       <Footer>
-        <Button title='Confirmar' onPress={handleSchedulingDetails}/>
+        <Button title='Confirmar' onPress={handleSchedulingDetails} enabled={!!rentalPeriod.endFormatted}/>
       </Footer>
     </Container>
   );

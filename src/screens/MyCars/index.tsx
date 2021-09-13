@@ -27,7 +27,7 @@ import {
 } from './styles';
 
 interface CarProps {
-  id: string;
+  id: number;
   user_id: string;
   car: CarDTO;
   startDate: string;
@@ -89,7 +89,7 @@ export function MyCars() {
 
           <FlatList 
             data={cars}
-            keyExtractor={item => item.id}
+            keyExtractor={item => String(item.id)}
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => (
               <CarWrapper>
