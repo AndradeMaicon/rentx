@@ -74,11 +74,13 @@ import com.android.build.OutputFile
  *
  *   // supply additional arguments to the packager
  *   extraPackagerArgs: []
+ *  
+ *   enableHermes: (findProperty('expo.jsEngine') ?: "jsc") == "hermes",
  * ]
  */
 
 project.ext.react = [
-    enableHermes: (findProperty('expo.jsEngine') ?: "jsc") == "hermes",
+    enableHermes: true
 ]
 
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy'

@@ -14,7 +14,7 @@ import Animated, {
 
 import { Container } from './styles';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'react-native';
 
 export function Splash() {
   const splashAnimation = useSharedValue(0);
@@ -61,9 +61,10 @@ export function Splash() {
   return (
     <Container>
       <StatusBar 
-        hidden
+        barStyle='light-content'
+        backgroundColor='transparent'
+        translucent
       />
-
       <Animated.View style={[{ position: 'absolute' }, brandStyle]}>
         <BrandSvg width={RFValue(78)} height={RFValue(48)} />
       </Animated.View>
