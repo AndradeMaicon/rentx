@@ -5,7 +5,7 @@ import {
   Keyboard,
   Alert
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { CommonActions, useNavigation, useRoute } from '@react-navigation/native';
 
 import { BackButtom } from '../../../components/BackButtom';
 import { Bullet } from '../../../components/Bullet';
@@ -40,7 +40,6 @@ export function SignUpSecondStep() {
   const theme = useTheme();
 
   const { user } = route.params as Params;
-  console.log(user); 
 
   function handleGoBack() {
     navigation.goBack()
@@ -54,6 +53,18 @@ export function SignUpSecondStep() {
     if(password != passwordConfirm) {
       return Alert.alert('As senhas não são iguais')
     }
+
+
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Confirmation',
+        params: {
+          nextScreenRoute: 'SignIn',
+          title: 'Conta criada',
+          message: `Agora é só fazer login\ne aproveitar`
+        }
+      })
+    )
   }
 
   return (
@@ -104,6 +115,7 @@ export function SignUpSecondStep() {
           <Button 
             title='Cadastrar'
             color={theme.colors.success}
+            onPress={handleRegister}
           />
         </Container>
       </TouchableWithoutFeedback>
