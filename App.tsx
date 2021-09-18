@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from './src/shared/styles/theme';
 
 import { Routes } from './src/routes';
+import { AppProvider } from './src/hooks';
 
 import {
   useFonts,
@@ -17,6 +18,7 @@ import {
   Archivo_500Medium,
   Archivo_600SemiBold
 } from '@expo-google-fonts/archivo';
+
 
 
 export default function App() {
@@ -34,7 +36,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Routes />
+      <AppProvider>
+        <Routes />
+      </AppProvider>
     </ThemeProvider>
   );
 }
