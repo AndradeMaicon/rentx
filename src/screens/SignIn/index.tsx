@@ -7,6 +7,7 @@ import {
   Alert
 } from 'react-native';
 import * as Yup from 'yup';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 
 import { useTheme } from 'styled-components/native';
 
@@ -27,7 +28,17 @@ export function SignIn() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
+  const navigation = useNavigation();
+
   const theme = useTheme();
+
+  function handleActionSignUp() {
+    navigation.dispatch(
+      CommonActions.navigate({
+        name: 'SignUpFirstStep'
+      })
+    )
+  }
 
   async function HandleSignIn() {
     try {
@@ -41,6 +52,8 @@ export function SignIn() {
 
       await schema.validate({ email, password });
       Alert.alert('Tudo certo!')
+
+      // Fazer login
     } catch (error) {
       if(error instanceof Yup.ValidationError){
         Alert.alert('Opa', error.message);
@@ -108,8 +121,8 @@ export function SignIn() {
             <Button
               title='Criar conta gratuita'
               color={theme.colors.backgorund_secondary}
-              onPress={() => {}}
-              enabled={false}
+              onPress={handleActionSignUp}
+              enabled={true}
               loading={false}
               light
             />
