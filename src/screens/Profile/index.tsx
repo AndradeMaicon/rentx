@@ -3,7 +3,7 @@ import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert
+  Alert,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
@@ -103,6 +103,23 @@ export function Profile() {
     }
   }
 
+  async function handleSignOut() {
+    Alert.alert(
+      'Tem ceterza?',
+      'Se você sair, irá precisar de internet para conectar-se novamente.',
+      [
+        {
+          text: 'Cancelar',
+          onPress: () => {}
+        },
+        {
+          text: 'Sair',
+          onPress: () => signOut()
+        }
+      ]
+    );
+  }
+
   return (
     <KeyboardAvoidingView behavior='position' enabled>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -114,7 +131,7 @@ export function Profile() {
                 onPress={handleBack}
               />
               <HeaderTitle>Editar Perfil</HeaderTitle>
-              <LogoutButton onPress={signOut}>
+              <LogoutButton onPress={handleSignOut}>
                 <Feather 
                   name='power'
                   size={RFValue(24)}
