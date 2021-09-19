@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'styled-components';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 import HomeSvg from '../assets/home.svg';
 import CarSvg from '../assets/car.svg';
@@ -25,14 +26,14 @@ export function AppTabRoutes(){
         tabBarShowLabel: false,
         tabBarStyle: {
           paddingVertical: Platform.OS === 'ios' ? 20 : 0,
-          height: 78,
+          height: RFValue(78),
           backgroundColor: theme.colors.background_primary
         }
       }}  
       initialRouteName='SignIn'      
     >
       <Screen 
-        name='Home'
+        name='Start'
         component={AppStackRoutes}
         options={{
           tabBarIcon: (({ color }) => (
