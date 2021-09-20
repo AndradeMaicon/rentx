@@ -12,12 +12,14 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Yup from 'yup';
 
 import { useNavigation } from '@react-navigation/native';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useTheme } from 'styled-components';
 import { useAuth } from '../../hooks/auth';
 
 import { BackButtom } from '../../components/BackButtom';
 import { Input } from '../../components/Input';
 import { PasswordInput } from '../../components/PasswordInput';
+import { Button } from '../../components/Button';
 
 import {
   Container,
@@ -34,7 +36,6 @@ import {
   OptionTitle,
   Section
 } from './styles';
-import { Button } from '../../components/Button';
 
 export function Profile() {
   const { user, signOut, updatedUser } = useAuth();
@@ -44,6 +45,7 @@ export function Profile() {
   const [name, setName] = useState(user.name);
   const [driverLicense, setDriverLicense] = useState(user.driver_license);
 
+  const netInfo = useNetInfo();
   const theme = useTheme();
   const navigation = useNavigation();
 
@@ -52,6 +54,9 @@ export function Profile() {
   }
 
   function handleOptionChange(optionSelected: 'dataEdit' | 'passwordEdit') {
+    if(netInfo.isConnected === false && optionSelected === 'passwordEdit') {
+      Alert.alert('Você está offline','Para mudar a senha, conecte-se a Internet')
+    }
     setOption(optionSelected);
   }
 
