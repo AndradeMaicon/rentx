@@ -1,4 +1,5 @@
 import React from 'react';
+import { LogBox } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
 
@@ -19,7 +20,9 @@ import {
   Archivo_600SemiBold
 } from '@expo-google-fonts/archivo';
 
-
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 
 export default function App() {
   const [fontsLoaded] = useFonts({
